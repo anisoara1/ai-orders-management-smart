@@ -1,0 +1,123 @@
+{
+    "_version": "1.65.0",
+
+    "sap.app": {
+        "id": "ai.orders.ui",
+        "type": "application",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "title": "AI Orders Management",
+        "description": "AI-powered Orders Management",
+
+        "dataSources": {
+            "mainService": {
+                "uri": "/odata/v4/orders/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "4.0"
+                }
+            }
+        }
+    },
+
+    "sap.ui": {
+        "technology": "UI5",
+
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+
+    "sap.ui5": {
+        "rootView": {
+            "viewName": "ai.orders.ui.view.App",
+            "type": "XML",
+            "async": true
+        },
+
+        "dependencies": {
+            "minUI5Version": "1.120.0",
+
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ui.layout": {}
+            }
+        },
+
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+
+        "models": {
+            "": {
+                "dataSource": "mainService",
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true
+                }
+            },
+
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "ai.orders.ui.i18n.i18n"
+                }
+            }
+        },
+
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "viewPath": "ai.orders.ui.view",
+                "controlId": "app",
+                "controlAggregation": "pages",
+                "async": true
+            },
+
+            "routes": [
+                {
+                    "pattern": "",
+                    "name": "dashboard",
+                    "target": "dashboard"
+                },
+                {
+                    "pattern": "orders",
+                    "name": "orders",
+                    "target": "orders"
+                },
+                {
+                    "pattern": "order/{orderId}",
+                    "name": "orderDetails",
+                    "target": "orderDetails"
+                }
+            ],
+
+            "targets": {
+                "dashboard": {
+                    "viewName": "Dashboard"
+                },
+                "orders": {
+                    "viewName": "Orders"
+                },
+                "orderDetails": {
+                    "viewName": "OrderDetails"
+                }
+            }
+        }
+    }
+}

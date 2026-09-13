@@ -1,0 +1,274 @@
+<mvc:View
+controllerName="ai.orders.ui.controller.Dashboard"
+xmlns:mvc="sap.ui.core.mvc"
+xmlns="sap.m"
+xmlns:layout="sap.ui.layout"
+height="100%">
+
+<Page
+    id="dashboardPage"
+    title="AI Orders Management"
+    enableScrolling="true">
+
+    <content>
+
+        <VBox
+            width="100%"
+            class="sapUiResponsiveContentPadding">
+
+            <!-- Dashboard header -->
+            <VBox
+                class="sapUiSmallMarginBottom">
+
+                <Title
+                    text="Dashboard"
+                    level="H1"/>
+
+                <Text
+                    text="Overview of orders, processing and customer activity"
+                    class="sapUiTinyMarginTop"/>
+
+            </VBox>
+
+            <!-- Order status overview -->
+            <Title
+                text="Order Status"
+                level="H2"
+                class="sapUiSmallMarginTop sapUiTinyMarginBottom"/>
+
+            <HBox
+                width="100%"
+                wrap="Wrap"
+                justifyContent="SpaceBetween"
+                alignItems="Stretch">
+
+                <!-- Total orders -->
+                <VBox
+                    class="sapUiTinyMarginEnd sapUiTinyMarginBottom">
+
+                    <layoutData>
+                        <FlexItemData
+                            growFactor="1"
+                            shrinkFactor="1"
+                            baseSize="11rem"/>
+                    </layoutData>
+
+                    <Panel>
+                        <VBox
+                            class="sapUiSmallMargin"
+                            justifyContent="Center">
+
+                            <Text
+                                text="Total Orders"/>
+
+                            <Title
+                                text="{dashboard>/totalOrders}"
+                                level="H2"/>
+
+                        </VBox>
+                    </Panel>
+
+                </VBox>
+
+                <!-- Pending orders -->
+                <VBox
+                    class="sapUiTinyMarginEnd sapUiTinyMarginBottom">
+
+                    <layoutData>
+                        <FlexItemData
+                            growFactor="1"
+                            shrinkFactor="1"
+                            baseSize="11rem"/>
+                    </layoutData>
+
+                    <Panel>
+                        <VBox
+                            class="sapUiSmallMargin"
+                            justifyContent="Center">
+
+                            <Text
+                                text="Pending"/>
+
+                            <Title
+                                text="{dashboard>/pendingOrders}"
+                                level="H2"/>
+
+                        </VBox>
+                    </Panel>
+
+                </VBox>
+
+                <!-- Processing orders -->
+                <VBox
+                    class="sapUiTinyMarginEnd sapUiTinyMarginBottom">
+
+                    <layoutData>
+                        <FlexItemData
+                            growFactor="1"
+                            shrinkFactor="1"
+                            baseSize="11rem"/>
+                    </layoutData>
+
+                    <Panel>
+                        <VBox
+                            class="sapUiSmallMargin"
+                            justifyContent="Center">
+
+                            <Text
+                                text="Processing"/>
+
+                            <Title
+                                text="{dashboard>/processingOrders}"
+                                level="H2"/>
+
+                        </VBox>
+                    </Panel>
+
+                </VBox>
+
+                <!-- Completed orders -->
+                <VBox
+                    class="sapUiTinyMarginEnd sapUiTinyMarginBottom">
+
+                    <layoutData>
+                        <FlexItemData
+                            growFactor="1"
+                            shrinkFactor="1"
+                            baseSize="11rem"/>
+                    </layoutData>
+
+                    <Panel>
+                        <VBox
+                            class="sapUiSmallMargin"
+                            justifyContent="Center">
+
+                            <Text
+                                text="Completed"/>
+
+                            <Title
+                                text="{dashboard>/completedOrders}"
+                                level="H2"/>
+
+                        </VBox>
+                    </Panel>
+
+                </VBox>
+
+                <!-- Offered orders -->
+                <VBox
+                    class="sapUiTinyMarginEnd sapUiTinyMarginBottom">
+
+                    <layoutData>
+                        <FlexItemData
+                            growFactor="1"
+                            shrinkFactor="1"
+                            baseSize="11rem"/>
+                    </layoutData>
+
+                    <Panel>
+                        <VBox
+                            class="sapUiSmallMargin"
+                            justifyContent="Center">
+
+                            <Text
+                                text="Total Offered"/>
+
+                            <Title
+                                text="{dashboard>/totalOffered}"
+                                level="H2"/>
+
+                        </VBox>
+                    </Panel>
+
+                </VBox>
+
+            </HBox>
+
+            <!-- Financial overview and quick actions -->
+            <HBox
+                width="100%"
+                wrap="Wrap"
+                alignItems="Stretch"
+                class="sapUiSmallMarginTop">
+
+                <!-- Financial overview -->
+                <VBox
+                    class="sapUiTinyMarginEnd sapUiTinyMarginBottom">
+
+                    <layoutData>
+                        <FlexItemData
+                            growFactor="2"
+                            shrinkFactor="1"
+                            baseSize="22rem"/>
+                    </layoutData>
+
+                    <Panel
+                        headerText="Financial Overview">
+
+                        <VBox
+                            class="sapUiSmallMargin"
+                            justifyContent="Center">
+
+                            <Text
+                                text="Total Order Value"/>
+
+                            <HBox
+                                alignItems="End"
+                                class="sapUiSmallMarginTop">
+
+                                <Title
+                                    text="{ path: 'dashboard>/totalValue', formatter: '.formatCurrency' }"
+                                    level="H2"/>
+
+                                <Text
+                                    text="RON"
+                                    class="sapUiTinyMarginBegin sapUiTinyMarginBottom"/>
+
+                            </HBox>
+
+                        </VBox>
+
+                    </Panel>
+
+                </VBox>
+
+                <!-- Quick actions -->
+                <VBox
+                    class="sapUiTinyMarginBottom">
+
+                    <layoutData>
+                        <FlexItemData
+                            growFactor="1"
+                            shrinkFactor="1"
+                            baseSize="16rem"/>
+                    </layoutData>
+
+                    <Panel
+                        headerText="Quick Actions">
+
+                        <VBox
+                            class="sapUiSmallMargin"
+                            justifyContent="Center">
+
+                            <Button
+                                text="View Orders"
+                                icon="sap-icon://list"
+                                type="Emphasized"
+                                press=".onOrders"
+                                width="100%"/>
+
+                        </VBox>
+
+                    </Panel>
+
+                </VBox>
+
+            </HBox>
+
+        </VBox>
+
+    </content>
+
+</Page>
+
+</mvc:View>

@@ -1,0 +1,243 @@
+<mvc:View
+    controllerName="ai.orders.ui.controller.OrderDetails"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+
+    <Page
+        title="Order Details"
+        showNavButton="true"
+        navButtonPress=".onNavBack">
+
+        <content>
+
+            <!-- Order summary -->
+            <ObjectHeader
+                title="{product}"
+                number="{
+                    parts: [
+                        { path: 'price' },
+                        { path: 'quantity' },
+                        { path: 'finalPrice' }
+                    ],
+                    formatter: '.formatOrderTotal'
+                }"
+                numberUnit="RON">
+
+                <attributes>
+
+                    <ObjectAttribute
+                        title="Order ID"
+                        text="{ID}"/>
+
+                    <ObjectAttribute
+                        title="Customer"
+                        text="{customerID}"/>
+
+                    <ObjectAttribute
+                        title="Quantity"
+                        text="{quantity}"/>
+
+                    <ObjectAttribute
+                        title="Unit Price"
+                        text="{
+                            path: 'price',
+                            formatter: '.formatPrice'
+                        }"/>
+
+                    <ObjectAttribute
+                        title="Applied Discount"
+                        text="{appliedDiscount}"/>
+
+                    <ObjectAttribute
+                        title="Delivery Days"
+                        text="{deliveryDays}"/>
+
+                    <ObjectAttribute
+                        title="Offer Status"
+                        text="{offerStatus}"/>
+
+                </attributes>
+
+                <statuses>
+
+                    <ObjectStatus
+                        text="{status}"
+                        state="{
+                            path: 'status',
+                            formatter: '.formatStatus'
+                        }"/>
+
+                </statuses>
+
+            </ObjectHeader>
+
+            <!-- AI recommendation flow -->
+            <Panel
+                headerText="AI Recommendation"
+                expandable="false"
+                class="aiRecommendationPanel sapUiSmallMarginBottom">
+
+                <VBox
+                    class="sapUiSmallMargin">
+
+                    <!-- Generate recommendation -->
+                    <Button
+                        id="aiRecommendationButton"
+                        text="Get AI Recommendation"
+                        icon="sap-icon://ai"
+                        type="Emphasized"
+                        press=".onGetAIRecommendation"
+                        class="sapUiSmallMarginBottom"/>
+
+                    <!-- Display recommendation details -->
+                    <VBox
+                        visible="{= !!${ai>/aiRecommendation}}">
+
+                        <VBox
+                            class="sapUiSmallMarginBottom">
+
+                            <Label
+                                text="Confidence"
+                                design="Bold"/>
+
+                            <Text
+                                text="{ai>/aiRecommendation/confidenceScore}"
+                                class="sapUiTinyMarginTop"/>
+
+                        </VBox>
+
+                        <VBox
+                            class="sapUiSmallMarginBottom">
+
+                            <Label
+                                text="Recommendation"
+                                design="Bold"/>
+
+                            <Text
+                                text="{ai>/aiRecommendation/recommendation}"
+                                wrapping="true"
+                                class="sapUiTinyMarginTop"/>
+
+                        </VBox>
+
+                        <VBox
+                            class="sapUiSmallMarginBottom">
+
+                            <Label
+                                text="Reason"
+                                design="Bold"/>
+
+                            <Text
+                                text="{ai>/aiRecommendation/reason}"
+                                wrapping="true"
+                                class="sapUiTinyMarginTop"/>
+
+                        </VBox>
+
+                        <VBox
+                            class="sapUiSmallMarginBottom">
+
+                            <Label
+                                text="Suggested Discount"
+                                design="Bold"/>
+
+                            <Text
+                                text="{
+                                    path: 'ai>/aiRecommendation/suggestedDiscount',
+                                    formatter: '.formatDiscount'
+                                }"
+                                class="sapUiTinyMarginTop"/>
+
+                        </VBox>
+
+                        <VBox
+                            class="sapUiSmallMarginBottom">
+
+                            <Label
+                                text="Suggested Delivery"
+                                design="Bold"/>
+
+                            <Text
+                                text="{ai>/aiRecommendation/suggestedDeliveryDays}"
+                                class="sapUiTinyMarginTop"/>
+
+                        </VBox>
+
+                        <VBox
+                            class="sapUiSmallMarginBottom">
+
+                            <Label
+                                text="Decision"
+                                design="Bold"/>
+
+                            <ObjectStatus
+                                text="{ai>/aiRecommendation/decisionStatus}"
+                                state="Information"
+                                class="sapUiTinyMarginTop"/>
+
+                        </VBox>
+
+                        <VBox
+                            class="sapUiSmallMarginBottom">
+
+                            <Label
+                                text="Applied Discount"
+                                design="Bold"/>
+
+                            <Text
+                                text="{
+                                    path: 'ai>/aiRecommendation/appliedDiscount',
+                                    formatter: '.formatDiscount'
+                                }"
+                                class="sapUiTinyMarginTop"/>
+
+                        </VBox>
+
+                        <!-- Accept or reject the recommendation -->
+                        <HBox
+                            class="sapUiSmallMarginTop"
+                            wrap="Wrap"
+                            justifyContent="Start"
+                            alignItems="Center">
+
+                            <Button
+                                id="acceptAIButton"
+                                text="Accept AI Recommendation"
+                                icon="sap-icon://accept"
+                                type="Accept"
+                                press=".onAcceptAIRecommendation"
+                                enabled="{= ${ai>/aiRecommendation/decisionStatus} !== 'ACCEPTED' }"
+                                class="sapUiTinyMarginEnd sapUiTinyMarginBottom"/>
+
+                            <Button
+                                id="rejectAIButton"
+                                text="Reject AI Recommendation"
+                                icon="sap-icon://decline"
+                                type="Reject"
+                                press=".onRejectAIRecommendation"
+                                enabled="{= ${ai>/aiRecommendation/decisionStatus} !== 'REJECTED' }"
+                                class="sapUiTinyMarginBottom"/>
+
+                        </HBox>
+
+                        <!-- Send the accepted offer to the customer -->
+                        <Button
+                            id="sendOfferButton"
+                            text="Send Offer to Customer"
+                            icon="sap-icon://email"
+                            type="Emphasized"
+                            press=".onSendOfferToCustomer"
+                            enabled="{= ${ai>/aiRecommendation/decisionStatus} === 'ACCEPTED' &amp;&amp; ${offerStatus} !== 'SENT' &amp;&amp; ${offerStatus} !== 'ACCEPTED' }"
+                            class="sapUiSmallMarginTop"/>
+
+                    </VBox>
+
+                </VBox>
+
+            </Panel>
+
+        </content>
+
+    </Page>
+
+</mvc:View>

@@ -1,0 +1,17 @@
+{
+  "name": "ai-orders-management-smart",
+  "version": "1.0.0",
+  "dependencies": {
+    "@google/genai": "^2.18.0",
+    "@sap-ai-sdk/orchestration": "^2.15.0",
+    "@sap/cds": "^9",
+    "axios": "^1.19.0"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^2.4"
+  },
+  "scripts": {
+    "start": "cds-serve"
+  },
+  "private": true
+}

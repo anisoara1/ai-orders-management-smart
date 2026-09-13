@@ -1,0 +1,17 @@
+{
+  "name": "orders-ui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@ui5/cli": "^4.0.62",
+    "ui5-middleware-simpleproxy": "^3.9.0"
+  }
+}

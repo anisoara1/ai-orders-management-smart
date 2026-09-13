@@ -1,0 +1,21 @@
+ID,customerID,product,quantity,price,status
+1,1,Laptop Lenovo,1,3500.00,Pending
+2,2,Mouse Logitech,20,120.00,Pending
+3,3,Tastatura Logitech,2,250.00,Pending
+4,4,Monitor Dell,4,1400.00,Pending
+5,5,Casti Sony,3,450.00,Pending
+6,6,Laptop Lenovo,2,3500.00,Pending
+7,7,Mouse Logitech,10,120.00,Pending
+8,8,Tastatura Logitech,5,250.00,Pending
+9,9,Monitor Dell,2,1400.00,Pending
+10,10,Casti Sony,8,450.00,Pending
+11,1,Monitor Dell,1,1400.00,Pending
+12,2,Laptop Lenovo,3,3500.00,Pending
+13,3,Mouse Logitech,15,120.00,Pending
+14,4,Casti Sony,5,450.00,Pending
+15,5,Tastatura Logitech,4,250.00,Pending
+16,6,Monitor Dell,3,1400.00,Pending
+17,7,Laptop Lenovo,1,3500.00,Pending
+18,8,Mouse Logitech,25,120.00,Pending
+19,9,Tastatura Logitech,3,250.00,Pending
+20,10,Casti Sony,10,450.00,Pending

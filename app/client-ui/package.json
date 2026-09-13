@@ -1,0 +1,12 @@
+{
+  "name": "client-ui",
+  "version": "1.0.0",
+  "description": "Customer Portal",
+  "private": true,
+  "type": "commonjs",
+  "devDependencies": {
+    "@ui5/cli": "^4.0.62",
+    "ui5-middleware-index": "^3.1.4",
+    "ui5-middleware-simpleproxy": "^3.9.0"
+  }
+}

@@ -1,0 +1,203 @@
+<mvc:View
+    controllerName="ai.orders.client.controller.Client"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    displayBlock="true"
+    height="100vh">
+
+<Page
+    id="customerPage"
+    title="Customer Portal"
+    enableScrolling="true">
+
+    <content>
+
+        <VBox
+            width="100%"
+            class="sapUiResponsiveContentPadding">
+
+            <Title
+                text="My Orders"
+                level="H2"
+                class="sapUiSmallMarginBottom"/>
+
+            <HBox
+                alignItems="Center"
+                wrap="Wrap"
+                class="sapUiSmallMarginBottom">
+
+                <Label
+                    text="Customer ID:"
+                    class="sapUiTinyMarginEnd"/>
+
+                <Input
+                    width="100px"
+                    type="Number"
+                    value="{client>/customerID}"
+                    class="sapUiTinyMarginEnd"/>
+
+                <Button
+                    text="Load Orders"
+                    icon="sap-icon://refresh"
+                    type="Emphasized"
+                    press=".onLoadOrders"/>
+
+            </HBox>
+
+            <BusyIndicator
+                visible="{client>/loading}"
+                class="sapUiMediumMargin"/>
+
+            <MessageStrip
+                visible="{= ${client>/orders}.length === 0 &amp;&amp; !${client>/loading} }"
+                text="Nu există comenzi sau oferte disponibile pentru acest client."
+                type="Information"
+                showIcon="true"
+                class="sapUiSmallMarginBottom"/>
+
+            <Table
+                id="ordersTable"
+                width="100%"
+                items="{client>/orders}"
+                growing="true"
+                growingThreshold="20"
+                inset="false"
+                noDataText="No orders available">
+
+                <columns>
+
+                    <Column>
+                        <Text text="Order"/>
+                    </Column>
+
+                    <Column>
+                        <Text text="Product"/>
+                    </Column>
+
+                    <Column hAlign="End">
+                        <Text text="Qty"/>
+                    </Column>
+
+                    <Column hAlign="End">
+                        <Text text="Original Total"/>
+                    </Column>
+
+                    <Column hAlign="End">
+                        <Text text="Discount"/>
+                    </Column>
+
+                    <Column hAlign="End">
+                        <Text text="Final Total"/>
+                    </Column>
+
+                    <Column hAlign="Center">
+                        <Text text="Delivery"/>
+                    </Column>
+
+                    <Column hAlign="Center">
+                        <Text text="Offer"/>
+                    </Column>
+
+                    <Column hAlign="Center">
+                        <Text text="Action"/>
+                    </Column>
+
+                </columns>
+<items>
+
+    <ColumnListItem>
+
+        <cells>
+
+            <!-- ORDER -->
+            <ObjectIdentifier
+                title="{client>ID}"
+                text="{client>status}"/>
+
+            <!-- PRODUCT -->
+            <Text
+                text="{client>product}"/>
+
+            <!-- QUANTITY -->
+            <Text
+                text="{client>quantity}"/>
+
+            <!-- ORIGINAL TOTAL -->
+            <ObjectNumber
+                number="{client>originalPrice}"
+                unit="RON"/>
+
+            <!-- DISCOUNT -->
+            <ObjectNumber
+                number="{client>offeredDiscount}"
+                unit="%"
+                visible="{= ${client>offeredDiscount} &gt; 0 }"/>
+
+            <!-- FINAL TOTAL -->
+            <ObjectNumber
+                number="{client>finalPrice}"
+                unit="RON"/>
+
+            <!-- DELIVERY -->
+            <Text
+                text="{= ${client>deliveryDays} ? ${client>deliveryDays} + ' days' : '—' }"/>
+
+            <!-- OFFER -->
+            <ObjectStatus
+                text="{= ${client>offerStatus} === 'SENT'
+                    ? 'Offer available'
+                    : ${client>offerStatus} === 'ACCEPTED'
+                    ? 'Accepted'
+                    : ${client>offerStatus} === 'REJECTED'
+                    ? 'Rejected'
+                    : 'No offer' }"
+                state="{= ${client>offerStatus} === 'SENT'
+                    ? 'Warning'
+                    : ${client>offerStatus} === 'ACCEPTED'
+                    ? 'Success'
+                    : ${client>offerStatus} === 'REJECTED'
+                    ? 'Error'
+                    : 'None' }"/>
+
+            <!-- ACTION -->
+            <HBox
+                justifyContent="Center"
+                alignItems="Center"
+                wrap="Wrap">
+
+                <Button
+                    text="Accept"
+                    icon="sap-icon://accept"
+                    type="Accept"
+                    press=".onAcceptOffer"
+                    visible="{= ${client>offerStatus} === 'SENT' }"
+                    class="sapUiTinyMarginEnd"/>
+
+                <Button
+                    text="Reject"
+                    icon="sap-icon://decline"
+                    type="Reject"
+                    press=".onRejectOffer"
+                    visible="{= ${client>offerStatus} === 'SENT' }"/>
+
+                <Text
+                    text="Decision made"
+                    visible="{= ${client>offerStatus} !== 'SENT' }"/>
+
+            </HBox>
+
+        </cells>
+
+    </ColumnListItem>
+
+</items>
+
+            </Table>
+
+        </VBox>
+
+    </content>
+
+</Page>
+
+</mvc:View>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>AI Orders Management</title>
+
+    <script
+        id="sap-ui-bootstrap"
+        src="https://ui5.sap.com/1.136.0/resources/sap-ui-core.js"
+        data-sap-ui-theme="sap_horizon"
+        data-sap-ui-resourceroots='{
+            "ai.orders.ui": "./"
+        }'
+        data-sap-ui-on-init="module:sap/ui/core/ComponentSupport"
+        data-sap-ui-compat-version="edge"
+        data-sap-ui-async="true"
+        data-sap-ui-frame-options="trusted">
+    </script>
+</head>
+
+<body class="sapUiBody sapUiSizeCompact">
+
+    <div
+        id="content"
+        style="width: 100%; height: 100vh;">
+
+        <div
+            data-sap-ui-component
+            data-name="ai.orders.ui"
+            data-id="container"
+            data-settings='{"id":"ai.orders.ui"}'>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

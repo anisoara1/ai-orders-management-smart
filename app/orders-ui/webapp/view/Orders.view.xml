@@ -1,0 +1,272 @@
+<mvc:View
+controllerName="ai.orders.ui.controller.Orders"
+xmlns:mvc="sap.ui.core.mvc"
+xmlns="sap.m">
+
+<Page
+    title="AI Orders Management"
+    class="ordersPage"
+    showNavButton="true"
+    navButtonPress=".onNavBack">
+
+    <content>
+
+        <VBox
+            class="sapUiSmallMargin">
+
+            <!-- Orders header -->
+            <HBox
+                justifyContent="SpaceBetween"
+                alignItems="Center">
+
+                <VBox>
+
+                    <Title
+                        text="Orders"
+                        level="H2"/>
+
+                    <Text
+                        text="Monitor, analyze and process customer orders"
+                        class="sapUiTinyMarginTop"/>
+
+                </VBox>
+
+            </HBox>
+
+            <!-- Orders table -->
+            <Table
+                id="ordersTable"
+                width="100%"
+                inset="false"
+                fixedLayout="false"
+                sticky="ColumnHeaders,HeaderToolbar"
+                showSeparators="Inner"
+                growing="true"
+                growingScrollToLoad="true"
+                autoPopinMode="true"
+                noDataText="No orders available"
+                items="{path: '/Orders'}">
+
+                <!-- Table toolbar -->
+                <headerToolbar>
+
+                    <Toolbar
+                        class="sapUiSmallMarginBottom">
+
+                        <Title
+                            text="Order List"
+                            level="H3"/>
+
+                        <Text
+                            text="Customer orders and processing status"
+                            class="sapUiTinyMarginBegin"/>
+
+                        <ToolbarSpacer/>
+
+                        <Button
+                            text="Refresh"
+                            icon="sap-icon://refresh"
+                            type="Transparent"
+                            press=".onRefresh"/>
+
+                    </Toolbar>
+
+                </headerToolbar>
+
+                <!-- Table columns -->
+                <columns>
+
+                    <Column
+                        width="5rem"
+                        hAlign="Center">
+
+                        <Text text="ID"/>
+
+                    </Column>
+
+                    <Column width="7rem">
+
+                        <Text text="Customer"/>
+
+                    </Column>
+
+                    <Column width="10rem">
+
+                        <Text text="Product"/>
+
+                    </Column>
+
+                    <Column
+                        width="5rem"
+                        hAlign="Center">
+
+                        <Text text="Qty"/>
+
+                    </Column>
+
+                    <Column
+                        width="7rem"
+                        hAlign="End">
+
+                        <Text text="Unit Price"/>
+
+                    </Column>
+
+                    <Column
+                        width="9rem"
+                        hAlign="End">
+
+                        <Text text="Initial Total"/>
+
+                    </Column>
+
+                    <Column
+                        width="6rem"
+                        hAlign="Center">
+
+                        <Text text="Discount"/>
+
+                    </Column>
+
+                    <Column
+                        width="9rem"
+                        hAlign="End">
+
+                        <Text text="Final Total"/>
+
+                    </Column>
+
+                    <Column width="8rem">
+
+                        <Text text="Status"/>
+
+                    </Column>
+
+                    <Column width="9rem">
+
+                        <Text text="Offer"/>
+
+                    </Column>
+
+                    <Column width="10rem">
+
+                        <Text text="Customer Decision"/>
+
+                    </Column>
+
+                    <Column
+                        width="10rem"
+                        hAlign="Center">
+
+                        <Text text="Action"/>
+
+                    </Column>
+
+                </columns>
+
+                <!-- Order rows -->
+                <items>
+
+                    <ColumnListItem
+                        type="Active"
+                        press=".onOrderPress">
+
+                        <cells>
+
+                            <ObjectIdentifier
+                                title="{= 'ORDER #' + ${ID} }"/>
+
+                            <Text
+                                text="{= 'Customer ' + ${customerID} }"
+                                textAlign="Center"/>
+
+                            <Text
+                                text="{product}"
+                                wrapping="true"/>
+
+                            <Text
+                                text="{quantity}"
+                                textAlign="Center"/>
+
+                            <ObjectNumber
+                                number="{
+                                    path: 'price',
+                                    formatter: '.formatUnitPrice'
+                                }"
+                                unit="RON"/>
+
+                            <ObjectNumber
+                                number="{
+                                    parts: [
+                                        {path:'price'},
+                                        {path:'quantity'}
+                                    ],
+                                    formatter: '.formatInitialTotal'
+                                }"
+                                unit="RON"/>
+
+                            <Text
+                                text="{appliedDiscount}"
+                                textAlign="Center"/>
+
+                            <ObjectNumber
+                                number="{finalPrice}"
+                                unit="RON"/>
+
+                            <ObjectStatus
+                                text="{status}"
+                                state="{
+                                    path: 'status',
+                                    formatter: '.formatStatus'
+                                }"/>
+
+                            <ObjectStatus
+                                text="{
+                                    path: 'offerStatus',
+                                    formatter: '.formatOfferStatus'
+                                }"
+                                state="{
+                                    path: 'offerStatus',
+                                    formatter: '.formatOfferStatusState'
+                                }"/>
+
+                            <ObjectStatus
+                                text="{
+                                    path: 'customerDecision',
+                                    formatter: '.formatCustomerDecision'
+                                }"
+                                state="{
+                                    path: 'customerDecision',
+                                    formatter: '.formatCustomerDecisionState'
+                                }"/>
+
+                            <!-- Visible for Pending and Processing orders only -->
+                            <Button
+                                id="actionButton"
+                                text="{
+                                    path: 'status',
+                                    formatter: '.formatActionText'
+                                }"
+                                type="Emphasized"
+                                icon="{
+                                    path: 'status',
+                                    formatter: '.formatActionIcon'
+                                }"
+                                press=".onActionPress"/>
+
+                        </cells>
+
+                    </ColumnListItem>
+
+                </items>
+
+            </Table>
+
+        </VBox>
+
+    </content>
+
+</Page>
+
+
+</mvc:View>
