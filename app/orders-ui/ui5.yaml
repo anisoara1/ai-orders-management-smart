@@ -20,4 +20,4 @@ server:
       afterMiddleware: compression
       mountPath: /odata
       configuration:
-        baseUri: http://localhost:4004/odata
+        baseUri: https://ai-orders-management-smart.onrender.com/odata
