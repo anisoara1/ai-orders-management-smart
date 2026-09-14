@@ -12,7 +12,7 @@
     "@cap-js/sqlite": "^2.4"
   },
   "scripts": {
-    "start": "cds deploy --to sqlite:db.sqlite && cds serve --production"
+    "start": "cds-deploy && cds-serve --production"
   },
   "private": true,
   "cds": {
@@ -29,3 +29,4 @@
     }
   }
 }
+
