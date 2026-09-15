@@ -1,0 +1,66 @@
+name: Deploy UI5 apps to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build Orders UI
+        working-directory: app/orders-ui
+        run: |
+          npm install
+          npx ui5 build --all
+
+      - name: Build Customer Portal
+        working-directory: app/client-ui
+        run: |
+          npm install
+          npx ui5 build --all
+
+      - name: Prepare GitHub Pages
+        run: |
+          mkdir -p pages/orders
+          mkdir -p pages/client
+
+          cp -r app/orders-ui/dist/* pages/orders/
+          cp -r app/client-ui/dist/* pages/client/
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: pages
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
