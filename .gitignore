@@ -22,3 +22,6 @@ mta_archives/
 .env
 .env.*
 !.env.example
+
+# UI5 build output
+dist/
