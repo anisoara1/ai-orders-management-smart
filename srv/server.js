@@ -29,6 +29,15 @@ cds.on("bootstrap", (app) => {
                 "Content-Type,Authorization,OData-Version,OData-MaxVersion,Accept,Accept-Language,Prefer,Origin"
             );
 
+            res.setHeader(
+                "Access-Control-Expose-Headers",
+                "OData-Version,OData-MaxVersion,Content-Type,Content-Length"
+            );
+
+            res.setHeader(
+                "OData-Version",
+                "4.0"
+            );
         }
 
         if (req.method === "OPTIONS") {
