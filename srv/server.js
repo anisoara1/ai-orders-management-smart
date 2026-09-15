@@ -27,10 +27,10 @@ cds.on("bootstrap", (app) => {
                 "Content-Type,Authorization,OData-Version,OData-MaxVersion,Accept,Accept-Language,Prefer,Origin"
             );
 
-            res.setHeader(
-                "Access-Control-Expose-Headers",
-                "Content-Type,Content-Length,OData-Version,Preference-Applied"
-            );
+        res.setHeader(
+            "Access-Control-Allow-Headers",
+            "Content-Type,Authorization,OData-Version,OData-MaxVersion,Accept,Accept-Language,Prefer,Origin,X-CSRF-Token"
+);
         }
 
         if (req.method === "OPTIONS") {
