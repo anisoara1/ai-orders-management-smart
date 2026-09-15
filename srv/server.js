@@ -7,6 +7,7 @@ cds.on("bootstrap", (app) => {
         const origin = req.headers.origin;
 
         if (origin === "https://anisoara1.github.io") {
+
             res.setHeader(
                 "Access-Control-Allow-Origin",
                 origin
@@ -24,13 +25,10 @@ cds.on("bootstrap", (app) => {
 
             res.setHeader(
                 "Access-Control-Allow-Headers",
+                req.headers["access-control-request-headers"] ||
                 "Content-Type,Authorization,OData-Version,OData-MaxVersion,Accept,Accept-Language,Prefer,Origin"
             );
 
-        res.setHeader(
-            "Access-Control-Allow-Headers",
-            "Content-Type,Authorization,OData-Version,OData-MaxVersion,Accept,Accept-Language,Prefer,Origin,X-CSRF-Token,sap-cancel-on-close"
-        );
         }
 
         if (req.method === "OPTIONS") {
