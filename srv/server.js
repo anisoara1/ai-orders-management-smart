@@ -29,8 +29,8 @@ cds.on("bootstrap", (app) => {
 
         res.setHeader(
             "Access-Control-Allow-Headers",
-            "Content-Type,Authorization,OData-Version,OData-MaxVersion,Accept,Accept-Language,Prefer,Origin,X-CSRF-Token"
-);
+            "Content-Type,Authorization,OData-Version,OData-MaxVersion,Accept,Accept-Language,Prefer,Origin,X-CSRF-Token,sap-cancel-on-close"
+        );
         }
 
         if (req.method === "OPTIONS") {
